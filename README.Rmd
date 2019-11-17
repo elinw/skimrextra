@@ -1,0 +1,102 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# skimrExtra
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of skimrExtra is to provide examples of extension to the skimr package.
+
+## Installation
+
+You can install the released version of skimrExtra from github. 
+
+``` r
+devtools::install_github("elinw/skimrExtra")
+```
+
+## Using skimrExtra
+
+The `skimr` package provides a compact summary of data in a data frame or 
+object that can be coerced to a data frame.  The summary provides an
+an opinionated list of statistics for many of the most commonly used data
+types (based on the `class()` of a variable).  This package, skimrExtra, extends
+this to some additional types both as examples of how to do this and in response
+to some common requests for additional data types.
+
+For example, objects using produced by the `sf` (simple features) package 
+include (one or more) columns representing geometries.  These are in
+geographic formats and not standard. In `skimr` these fall back to the default
+type of character, while `skimrExtra` supports them directly,
+assuming that the `sf` package is installed.  
+
+```{r example}
+library(skimr)
+if (requireNamespace("sf", quietly = TRUE)){
+  library(sf)
+  nc <- st_read(system.file("shape/nc.shp", package = "sf"))
+  skim(nc)
+}
+```
+
+Support for variables of the class `haven_labelled` is also included. This 
+support simply identifies the underlying data type using `typeof()` and 
+assumes the user will manage further processing if desired.
+
+```{r}
+library(skimrExtra)
+## basic example code
+if (requireNamespace("sf", quietly = TRUE)){
+  skim(nc)
+}
+
+
+```
+
+Generally speaking, the skimr API should be extended in packages that wish
+to use it rather than relying on the `skimr` or `skimrExtra` maintainers. 
+Doing so allows much greater customization. Instructions for this are 
+included in the `skimr` "Supporting additional objects" vignette.
+
+
+## Utility functions
+
+The package also includes a utility function `skim_to_var_table()` which
+produces a more compact data frame than does the standard `skim()` 
+function by casting statistics with shared names to strings and placing
+them in a single column. 
+
+```{r}
+skim_to_var_table(CO2) %>% knitr::kable()
+```
+
+compared to
+
+```{r}
+skim(CO2)
+```
+
+
+## Plans
+
+It may be that this package will add support for other data types, sets of
+skimmers, statistics and utilities.  Pull requests in these categories are 
+welcome and will be considered on a case by case basis. Contributions should
+include full documentation and tests. 
+
+Please note that the 'skimrExtra' project is released with a
+[Contributor Code of Conduct](CODE_OF_CONDUCT.md).
+By contributing to this project, you agree to abide by its terms.

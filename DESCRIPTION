@@ -1,0 +1,31 @@
+Package: skimrExtra
+Type: Package
+Title: Extra features for skimr
+Version: 0.1.0
+Author: Who wrote it
+Maintainer: The package maintainer <elin.waring@gmail.com>
+Description: Provides extra support for skimr in the form of skimmers for 
+    specialized classes, support for and additional statistics.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Depends:
+    R (>= 3.1.2)
+Imports: 
+    skimr (>= 2.0)
+Suggests:
+    covr,
+    extrafont,
+    rmarkdown,
+    sf,
+    testthat (>= 2.0.0),
+    withr
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
+Collate:
+    'stats.R'
+    'get_skimmers.R'
+    'skim_with.R'
+    'skimrExtra-package.R'
+    'utils.R'
