@@ -52,3 +52,22 @@ skim_var_table <- skim_with(
     min = NULL
   )
 )
+
+#' Skimmers to produce five number summaries for numeric variables
+#' @importFrom skimr skim_with
+#' @importFrom skimr sfl
+#' @export
+skim_five_num <- skim_with(
+  numeric = sfl(
+    data_type = ~"numeric",
+    p0 = ~as.character(format(min(., na.rm = TRUE), digits = 2)),
+    p25 = ~as.character(format(quantile(., probs = c(.25), na.rm = TRUE), digits =2)),
+    p50 = ~as.character(format(median(., na.rm = TRUE), digits =2)),
+    p75 = ~as.character(format(quantile(., probs = c(.75), na.rm = TRUE), digits =2)),
+    p100 = ~as.character(format(max(., na.rm = TRUE), digits =2),
+                         n_missing = NULL
+    )
+  ),
+  append = FALSE
+)
+
